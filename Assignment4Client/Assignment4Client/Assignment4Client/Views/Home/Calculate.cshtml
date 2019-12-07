@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Calculate";
+}
+
+
+
+
+
+<h2>Calculated Result</h2>
+
+
+<table id="customers">
+    <tr>
+        <th>Attribute</th>
+        <th>Calculated Value</th>
+    </tr>
+    <tr>
+        <td>Total Income</td>
+        <td>@ViewBag.TotalIncome</td>
+    </tr>
+
+    <tr>
+        <td>Tax Per Month</td>
+        <td>@ViewBag.TaxPerMonth</td>
+    </tr>
+
+    <tr>
+        <td>Tax Paid</td>
+        <td>@ViewBag.TaxPaid</td>
+    </tr>
+
+    <tr>
+        <td>Total Tax Liability</td>
+        <td>@ViewBag.TotalTaxLiability</td>
+    </tr>
+
+    <tr>
+        <td>Remaining Periods</td>
+        <td>@ViewBag.RemainingPeriods</td>
+    </tr>
+</table>

@@ -20,20 +20,28 @@ namespace Assignment4Client.Controllers
         {
             decimal totalSalary = 0M;
             decimal toalTaxPaid = 0M;
-            int remainingMonths = -1;
+            int remainingMonths = 0;
             for (int index = 1; index <= 12; ++index)
             {
-                totalSalary += Convert.ToDecimal(form["salary" + index.ToString()]);
+                decimal salary = Convert.ToDecimal(form["salary" + index.ToString()]);
+                totalSalary += salary;
                 decimal taxPaid = Convert.ToDecimal(form["taxpaid" + index.ToString()]);
-                if (remainingMonths == -1 && taxPaid == 0M)
-                    remainingMonths = 13 - index;
+                //assuming that remaining periods means the non tax paid months.
+                if (taxPaid == 0M)
+                    remainingMonths++;
                 toalTaxPaid += taxPaid;
             }
             totalSalary += Convert.ToDecimal(form["salaryextra"]);
 
-            decimal taxPerMonth = CalculationManager.GetMonthlyTax(
+            TaxComputation report = CalculationManager.GetMonthlyTax(
                 totalSalary, toalTaxPaid, remainingMonths);
-            ViewBag.TaxPerMonth = taxPerMonth;
+
+            ViewBag.TaxPerMonth = report.TaxPerMonth;
+            ViewBag.TotalTaxLiability = report.TotalTaxLiability;
+            ViewBag.TaxPaid = report.TaxPaid;
+            ViewBag.TotalIncome = report.TotalSalary;
+            ViewBag.RemainingPeriods = report.RemainingPeriods;
+
             return View();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,10 @@ namespace Assignment4Client.Models
 {
     class CalculationManager
     {
-        public static decimal GetMonthlyTax(decimal totalSalary, decimal totalTaxPaid,
+        public static TaxComputation GetMonthlyTax(decimal totalSalary, decimal totalTaxPaid,
             int remainingMonths)
         {
+            string endpoint = ConfigurationManager.AppSettings["ENDPOINTAPI"];
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:57199/");
@@ -27,10 +29,10 @@ namespace Assignment4Client.Models
                 if (response.IsSuccessStatusCode)
                 {
                     var resultObject = response.Content.ReadAsAsync<TaxComputation>().Result;
-                    return resultObject.TaxPerMonth;
+                    return resultObject;
                 }
             }
-            return 0M;
+            return new TaxComputation();
         }
     }
 

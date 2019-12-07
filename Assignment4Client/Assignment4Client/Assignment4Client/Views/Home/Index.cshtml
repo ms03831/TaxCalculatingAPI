@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Tax Calculator";
+}
+
+<h1 style="color:black; text-align: center"> Enter Details </h1>
+@using (Html.BeginForm("Calculate", "Home"))
+{
+<div id="containerMonth">
+    @for (int index = 1; index <= 12; ++index)
+    {
+    <div style="float: left;"id="month@(index)">
+        <h4 style="color:blue; text-align: left">Month: @index </h4>
+        <h5 style="color:gold; text-align: left">Salary </h5>
+        <input class="tb5" type="number" id="salary@(index)" name="salary@(index)" value="0" />
+        <h5 style="color:gold; text-align: left">Tax Paid </h5>
+        <input class="tb5" type="number" id="taxpaid@(index)" name="taxpaid@(index)" value="0" />
+    </div>
+    }
+</div>
+
+    <div style ="clear: both; padding-top: 10px;"id="extra">
+        <h2 style="color:black; text-align: center;">Additional Income</h2>
+        <h4 style="padding: 10px 5px; color:blue; text-align: left">Bonuses: </h4>
+        <input class="tb6" type="number" id="salaryextra" name="salaryextra" value="0" />
+    </div>
+    <br />
+    <input type="submit" value="Go!" />
+}
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('input[id^="salary"]').blur(function () {
+                var monthNo = this.id.substring(6);
+                monthNo++;
+                for (; monthNo <= 12; ++monthNo) {
+                    $('#salary' + monthNo).val($(this).val());
+                }
+            });
+
+            $('input[id^="taxpaid"]').blur(function () {
+                var monthNo = this.id.substring(7);
+                monthNo++;
+                for (; monthNo <= 12; ++monthNo) {
+                    $('#taxpaid' + monthNo).val($(this).val());
+                }
+            });
+        })
+    </script>
+}
